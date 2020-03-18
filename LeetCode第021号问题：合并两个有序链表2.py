@@ -1,4 +1,4 @@
-# encoding:utf8
+# encoding:utf-8
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
@@ -13,21 +13,30 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        head = ListNode(0)
-        first = head
+        if l1 is None:
+            return l2
+        if l2 is None:
+            return l1
+        re = ListNode(0)
+        first = re
         while l1 and l2:
             if l1.val > l2.val:
-                head.next = l2
+                re.next = l2
                 l2 = l2.next
             else:
-                head.next = l1
+                re.next = l1
                 l1 = l1.next
-            head = head.next
-        if l1 == None:
-            head.next = l2
-        elif l2 == None:
-            head.next = l1
+            re = re.next
+        if l1 is None:
+            re.next = l2
+        if l2 is None:
+            re.next = l1
         return first.next
+
+
+
+
+
 if __name__ == "__main__":
     p10 = ListNode(2)
     p11 = ListNode(3)
@@ -37,11 +46,9 @@ if __name__ == "__main__":
     p23 = ListNode(5)
     p10.next = p11
 
-
     p20.next = p21
     p21.next = p22
     p22.next = p23
-
 
     p = Solution()
     p = p.mergeTwoLists(p10, p20)
